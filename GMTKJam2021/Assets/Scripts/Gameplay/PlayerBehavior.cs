@@ -20,7 +20,12 @@ namespace GMTK2021.Gameplay
         private Animator animator;
 
         [SerializeField]
+        private Transform stomachTransform;
+
+        [SerializeField]
         private float speed = 1;
+
+        Vector3 theirPosition = Vector3.zero;
 
         public int Health => healthFuelValues.A;
 
@@ -70,9 +75,38 @@ namespace GMTK2021.Gameplay
         private void FixedUpdate()
         {
             rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.5f);
+
+            Vector3 myPosition = meshRoot.position;
+            if (rigidbody.velocity.magnitude < 0.1f)
+            {
+                meshRoot.transform.rotation = Quaternion.LookRotation(theirPosition - myPosition, Vector3.up);
+                stomachTransform.rotation = Quaternion.LookRotation(myPosition - theirPosition, Vector3.up);
+                animator.SetBool("Backwards", false);
+            }
+            else
+            {
+                Quaternion targetWalkRotation;
+                Quaternion targetLookRotation;
+                Vector3 stomachDirection = myPosition - theirPosition;
+                stomachDirection.y = 0;
+                Vector3 meshRootDirection = rigidbody.velocity;
+                meshRootDirection.y = 0;
+                animator.SetBool("Backwards", Vector3.Dot(meshRootDirection, -stomachDirection) < 0);
+                if (Vector3.Dot(meshRootDirection, -stomachDirection) < 0)
+                {
+                    targetWalkRotation = Quaternion.LookRotation(-rigidbody.velocity, Vector3.up);
+                    targetLookRotation = Quaternion.LookRotation(myPosition - theirPosition, Vector3.up);
+                }
+                else
+                {
+                    targetWalkRotation = Quaternion.LookRotation(rigidbody.velocity, Vector3.up);
+                    targetLookRotation = Quaternion.LookRotation(myPosition - theirPosition, Vector3.up);
+                }
+                meshRoot.transform.rotation = Quaternion.Lerp(targetWalkRotation, meshRoot.transform.rotation, 0.05f);
+                stomachTransform.rotation = targetLookRotation;
+            }
             currentSpeed = Vector2.zero;
             animator.SetFloat("MoveSpeed", rigidbody.velocity.magnitude);
-            animator.SetBool("Backwards", Vector3.Dot(rigidbody.velocity, meshRoot.rotation.eulerAngles) < 0);
         }
 
         public void LookAt(Vector3 location)
@@ -81,7 +115,7 @@ namespace GMTK2021.Gameplay
             myPosition.y = 0;
             Vector3 theirPosition = location;
             theirPosition.y = 0;
-            meshRoot.rotation = Quaternion.LookRotation(theirPosition - myPosition, Vector3.up);
+            this.theirPosition = theirPosition;
         }
 
         private void Start()
@@ -91,6 +125,13 @@ namespace GMTK2021.Gameplay
             healthFuelValues = new JoinedValues(200, 50, 50);
             flamethrower = GetComponentInChildren<FlamethrowerBehavior>();
             Debug.Assert(flamethrower);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(stomachTransform.position, stomachTransform.position - stomachTransform.forward);
+            if(meshRoot)
+                Gizmos.DrawLine(meshRoot.position, meshRoot.position + meshRoot.forward);
         }
     }
 }
