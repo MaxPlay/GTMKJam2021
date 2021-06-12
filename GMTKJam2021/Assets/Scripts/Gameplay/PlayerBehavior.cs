@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GMTK2021.Gameplay
 {
@@ -130,7 +129,7 @@ namespace GMTK2021.Gameplay
         private void OnDrawGizmos()
         {
             Gizmos.DrawLine(stomachTransform.position, stomachTransform.position - stomachTransform.forward);
-            if(meshRoot)
+            if (meshRoot)
                 Gizmos.DrawLine(meshRoot.position, meshRoot.position + meshRoot.forward);
         }
     }
