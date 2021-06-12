@@ -73,7 +73,7 @@ namespace GMTK2021.Gameplay
 
         private void FixedUpdate()
         {
-            rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.5f);
+            rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.8f);
 
             Vector3 myPosition = meshRoot.position;
             if (rigidbody.velocity.magnitude < 0.1f)

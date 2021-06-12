@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3132715533877647527}
   stomachTransform: {fileID: 5783647555539224655}
-  speed: 1
+  speed: 3
 --- !u!114 &3589991148462064716
 MonoBehaviour:
   m_ObjectHideFlags: 0
