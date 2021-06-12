@@ -108,6 +108,11 @@ namespace GMTK2021.Gameplay
             animator.SetFloat("MoveSpeed", rigidbody.velocity.magnitude);
         }
 
+        private void Update()
+        {
+            flamethrower.transform.rotation = meshRoot.rotation;
+        }
+
         public void LookAt(Vector3 location)
         {
             Vector3 myPosition = meshRoot.position;
