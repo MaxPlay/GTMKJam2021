@@ -19,6 +19,9 @@ namespace GMTK2021.Gameplay
         [SerializeField]
         private Animator animator;
 
+        [SerializeField]
+        private float speed = 1;
+
         public int Health => healthFuelValues.A;
 
         public int Fuel => healthFuelValues.B;
@@ -48,9 +51,9 @@ namespace GMTK2021.Gameplay
             healthFuelValues.AddToA(amount);
         }
 
-        public void Move(Vector2 speed)
+        public void Move(Vector2 moveSpeed)
         {
-            currentSpeed += speed;
+            currentSpeed += moveSpeed * speed;
         }
 
         internal void ShiftToHealth()
