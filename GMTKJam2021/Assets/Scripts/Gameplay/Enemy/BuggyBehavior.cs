@@ -13,7 +13,18 @@ namespace GMTK2021.Gameplay.Enemy
         [SerializeField]
         private float distanceToPlayer;
 
+        [SerializeField]
+        private float attackCooldown = 5;
+
+        [SerializeField]
+        private float attackRange = 1;
+
+        [SerializeField]
+        private int damagePower = 5;
+
         public Vector3? TargetPosition { get; private set; }
+
+        float attackCooldownChecker;
 
         protected override void Initialize()
         {
@@ -41,7 +52,18 @@ namespace GMTK2021.Gameplay.Enemy
         {
             base.Update();
             Animator.SetFloat("MoveSpeed", NavMeshAgent.velocity.magnitude);
+            attackCooldownChecker -= Time.deltaTime;
+            if(attackCooldownChecker < 0 && (GameManager.Player.transform.position - transform.position).sqrMagnitude < Mathf.Pow(attackRange, 2))
+            {
+                attackCooldownChecker = attackCooldown;
+                GameManager.Player.Damage(damagePower);
+            }
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
     }
 }

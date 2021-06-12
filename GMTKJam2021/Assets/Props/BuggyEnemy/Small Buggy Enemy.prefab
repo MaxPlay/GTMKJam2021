@@ -123,7 +123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7187793224851260842}
+  debugCurrentState: 0
   distanceToPlayer: 20
+  attackCooldown: 1
+  attackRange: 1.2
+  damagePower: 5
 --- !u!95 &7187793224851260842
 Animator:
   serializedVersion: 3
