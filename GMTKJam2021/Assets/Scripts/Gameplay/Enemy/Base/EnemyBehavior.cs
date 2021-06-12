@@ -16,6 +16,13 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         public NavMeshAgent NavMeshAgent { get; private set; }
 
+        [SerializeField]
+        private Animator animator;
+        public Animator Animator { get => animator; }
+
+        [SerializeField]
+        bool debugCurrentState = false;
+
         protected virtual void Start()
         {
             NavMeshAgent = GetComponent<NavMeshAgent>();
@@ -51,8 +58,10 @@ namespace GMTK2021.Gameplay.Enemy.Base
             }
         }
 
-        public void Update()
+        public virtual void Update()
         {
+            if (debugCurrentState)
+                Debug.Log(gameObject.name + "'s State is: " + currentState.GetType().ToString());
             currentState?.Update();
         }
     }

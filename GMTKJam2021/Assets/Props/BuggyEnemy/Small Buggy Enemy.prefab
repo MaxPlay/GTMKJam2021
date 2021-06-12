@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6250aaef600740e419a4470b89e87350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 7187793224851260842}
   distanceToPlayer: 20
 --- !u!95 &7187793224851260842
 Animator:

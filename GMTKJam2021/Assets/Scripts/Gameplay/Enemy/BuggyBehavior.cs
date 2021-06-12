@@ -36,5 +36,12 @@ namespace GMTK2021.Gameplay.Enemy
                 TargetPosition = null;
             return false;
         }
+
+        public override void Update()
+        {
+            base.Update();
+            Animator.SetFloat("MoveSpeed", NavMeshAgent.velocity.magnitude);
+        }
+
     }
 }
