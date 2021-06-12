@@ -16,6 +16,9 @@ namespace GMTK2021.Gameplay
 
         private FlamethrowerBehavior flamethrower;
 
+        [SerializeField]
+        private Animator animator;
+
         public int Health => healthFuelValues.A;
 
         public int Fuel => healthFuelValues.B;
@@ -65,6 +68,8 @@ namespace GMTK2021.Gameplay
         {
             rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.5f);
             currentSpeed = Vector2.zero;
+            animator.SetFloat("MoveSpeed", rigidbody.velocity.magnitude);
+            animator.SetBool("Backwards", Vector3.Dot(rigidbody.velocity, meshRoot.rotation.eulerAngles) < 0);
         }
 
         public void LookAt(Vector3 location)
