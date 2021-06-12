@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3132715533877647527}
-  speed: 3
+  stomachTransform: {fileID: 5783647555539224655}
+  speed: 1
 --- !u!114 &3589991148462064716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +313,11 @@ GameObject:
 --- !u!4 &8692309079759445496 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d05f3930acb23704593a435aa63d40a5, type: 3}
+  m_PrefabInstance: {fileID: 9163682233298172435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5783647555539224655 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5807298537566539172, guid: d05f3930acb23704593a435aa63d40a5, type: 3}
   m_PrefabInstance: {fileID: 9163682233298172435}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &753695233901171519 stripped
