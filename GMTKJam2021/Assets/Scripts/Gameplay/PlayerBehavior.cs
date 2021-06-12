@@ -14,18 +14,28 @@ namespace GMTK2021.Gameplay
         private new Rigidbody rigidbody;
         private Transform meshRoot;
 
+        private FlamethrowerBehavior flamethrower;
+
         public int Health => healthFuelValues.A;
 
         public int Fuel => healthFuelValues.B;
 
         public void Fire()
         {
-            Debug.DrawRay(transform.position, transform.forward * 5, Color.red);
+            if (Fuel > 0)
+            {
+                healthFuelValues.AddToB(-flamethrower.Activate());
+            }
         }
 
         public void Damage(int damage)
         {
             healthFuelValues.AddToA(-damage);
+            HealthCheck();
+        }
+
+        private void HealthCheck()
+        {
             if (Health <= 0)
                 Debug.Log("Dieded!");
         }
@@ -40,6 +50,17 @@ namespace GMTK2021.Gameplay
             currentSpeed += speed;
         }
 
+        internal void ShiftToHealth()
+        {
+            healthFuelValues.ShiftToA(1);
+        }
+
+        internal void ShiftToFuel()
+        {
+            healthFuelValues.ShiftToB(1);
+            HealthCheck();
+        }
+
         private void FixedUpdate()
         {
             rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.5f);
@@ -48,13 +69,20 @@ namespace GMTK2021.Gameplay
 
         public void LookAt(Vector3 location)
         {
-            // TODO(ms): Implement better look at logic for that, the unity one doesn't do it
+            Vector3 myPosition = meshRoot.position;
+            myPosition.y = 0;
+            Vector3 theirPosition = location;
+            theirPosition.y = 0;
+            meshRoot.rotation = Quaternion.LookRotation(theirPosition - myPosition, Vector3.up);
         }
 
         private void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
             meshRoot = transform.GetChild(0);
+            healthFuelValues = new JoinedValues(200, 50, 50);
+            flamethrower = GetComponentInChildren<FlamethrowerBehavior>();
+            Debug.Assert(flamethrower);
         }
     }
 }

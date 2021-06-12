@@ -12,6 +12,8 @@ namespace GMTK2021.Gameplay
 
         public int TotalValue { get; }
 
+        public int CurrentTotal => A + B;
+
         public void AddToA(int amount) => a += GetMaximumPossibleChangeAmount(amount);
 
         public void AddToB(int amount) => b += GetMaximumPossibleChangeAmount(amount);
@@ -30,7 +32,7 @@ namespace GMTK2021.Gameplay
 
         private int GetMaximumPossibleChangeAmount(int amount)
         {
-            int difference = TotalValue - (A + B);
+            int difference = TotalValue - CurrentTotal;
             if (difference < amount)
                 amount = difference;
             return amount;
@@ -41,7 +43,7 @@ namespace GMTK2021.Gameplay
             TotalValue = totalValue;
             a = startA;
             b = startB;
-            Debug.Assert(a + b <= totalValue, "The start values for the joined values may not exceed the total value.");
+            Debug.Assert(a + b <= totalValue / 2, "The start values for the joined values may not exceed the total value.");
         }
     }
 }
