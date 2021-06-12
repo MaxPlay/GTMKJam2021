@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GMTK2021.Gameplay
 {
@@ -74,7 +73,7 @@ namespace GMTK2021.Gameplay
 
         private void FixedUpdate()
         {
-            rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.5f);
+            rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.8f);
 
             Vector3 myPosition = meshRoot.position;
             if (rigidbody.velocity.magnitude < 0.1f)
@@ -109,6 +108,11 @@ namespace GMTK2021.Gameplay
             animator.SetFloat("MoveSpeed", rigidbody.velocity.magnitude);
         }
 
+        private void Update()
+        {
+            flamethrower.transform.rotation = meshRoot.rotation;
+        }
+
         public void LookAt(Vector3 location)
         {
             Vector3 myPosition = meshRoot.position;
@@ -130,7 +134,7 @@ namespace GMTK2021.Gameplay
         private void OnDrawGizmos()
         {
             Gizmos.DrawLine(stomachTransform.position, stomachTransform.position - stomachTransform.forward);
-            if(meshRoot)
+            if (meshRoot)
                 Gizmos.DrawLine(meshRoot.position, meshRoot.position + meshRoot.forward);
         }
     }
