@@ -24220,6 +24220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  damage: 5
   rigidbody: {fileID: 8881160061079306258}
 --- !u!54 &8881160061079306258
 Rigidbody:

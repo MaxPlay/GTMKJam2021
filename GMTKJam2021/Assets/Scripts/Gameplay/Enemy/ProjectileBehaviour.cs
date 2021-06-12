@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using GMTK2021;
+using GMTK2021.Gameplay;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +9,8 @@ public class ProjectileBehaviour : MonoBehaviour
     private Vector3 velocity;
 
     public GameObject parent;
+
+    public int damage;
 
     [SerializeField]
     Rigidbody rigidbody;
@@ -21,6 +25,10 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (parent != null && other.gameObject != parent)
         {
+            if(other.tag == "Player")
+            {
+                other.GetComponent<PlayerBehavior>().Damage(damage);
+            }
             Destroy(gameObject);
         }
     }
