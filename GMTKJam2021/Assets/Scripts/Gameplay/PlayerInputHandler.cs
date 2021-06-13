@@ -38,10 +38,10 @@ namespace GMTK2021.Gameplay
                 player.LookAt(ray.GetPoint(hitDistance));
             }
 
-            if (Input.GetKey(KeyCode.Q))
+            if (Input.GetKey(KeyCode.E))
                 player.ShiftToHealth();
 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.Q))
                 player.ShiftToFuel();
         }
     }

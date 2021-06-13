@@ -10,14 +10,9 @@ public class CameraFHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player && frontHandler)
+        if (player && frontHandler)
         {
             transform.position = (player.transform.position + frontHandler.transform.position) / 2;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.GetChild(0).transform.position, (player.transform.position + frontHandler.transform.position) / 2);
     }
 }

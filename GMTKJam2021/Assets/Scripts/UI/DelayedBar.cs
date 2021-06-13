@@ -152,7 +152,7 @@ namespace GMTK2021.UI
             value = Mathf.Clamp01(value);
             RectTransform rectTransform = MaximumBar.transform as RectTransform;
             rectTransform.anchoredPosition = 
-                new Vector2(direction == Image.OriginHorizontal.Left ? value * rectTransform.sizeDelta.x : - value * rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
+                new Vector2(direction == Image.OriginHorizontal.Left ?  value * rectTransform.sizeDelta.x : - value * rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
             //MaximumBar.fillAmount = 1 - value;
         }
 

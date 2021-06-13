@@ -21,8 +21,7 @@ namespace GMTK2021.Gameplay
 
         public void AddToA(int amount)
         {
-            int targetAmount = GetMaximumPossibleChangeAmount(amount);
-            if (a + targetAmount > maxA)
+            if (a + amount > maxA)
                 a = maxA;
             else
                 a += GetMaximumPossibleChangeAmount(amount);
@@ -30,9 +29,8 @@ namespace GMTK2021.Gameplay
 
         public void AddToB(int amount)
         {
-            int targetAmount = GetMaximumPossibleChangeAmount(amount);
-            if (b + targetAmount > maxB)
-                b = maxA;
+            if (b + amount > maxB)
+                b = maxB;
             else
                 b += GetMaximumPossibleChangeAmount(amount);
         }
@@ -51,8 +49,6 @@ namespace GMTK2021.Gameplay
             if (from < amount)
                 amount = from;
             from -= amount;
-            if (fromMax < amount)
-                amount = from;
             fromMax -= amount;
             toMax += amount;
             to += amount;
