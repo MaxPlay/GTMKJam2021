@@ -12,6 +12,8 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         private EnemyState currentState = null;
 
+        public EnemyState CurrentState { get => currentState; }
+
         private Type defaultState = null;
 
         public GameManager GameManager { get; set; }
