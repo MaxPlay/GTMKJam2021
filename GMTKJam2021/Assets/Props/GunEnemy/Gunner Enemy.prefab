@@ -9749,7 +9749,7 @@ MonoBehaviour:
   fireExtinguishCooldown: 5
   inFireDamageCooldown: 0
   onFireDamageCooldown: 5
-  maxHealth: 100
+  maxHealth: 60
   enemyActive: 1
   distanceToPlayer: 20
   shootDistance: 8

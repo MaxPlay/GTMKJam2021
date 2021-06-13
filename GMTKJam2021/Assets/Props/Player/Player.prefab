@@ -145,7 +145,7 @@ MonoBehaviour:
   cameraHandlerPrefab: {fileID: 2999610769560955941, guid: 7e9885402f15e8841997a11c0c5788d8, type: 3}
   explosionPrefab: {fileID: 6550480740783194947, guid: fa0620e684dfdfd43b34c2f106146b38, type: 3}
   fuelReloadCooldown: 1
-  fuelReloadSpeedCooldown: 0.25
+  fuelReloadSpeedCooldown: 0.1
   speed: 2
 --- !u!114 &3589991148462064716
 MonoBehaviour:
