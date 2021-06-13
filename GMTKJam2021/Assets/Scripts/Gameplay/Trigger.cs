@@ -43,5 +43,19 @@ namespace GMTK2021.Gameplay
                 }
             }
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            var boxCollider = GetComponent<BoxCollider>();
+            if (boxCollider != null)
+                Gizmos.DrawWireCube(boxCollider.center + transform.position, boxCollider.size);
+
+            var sphereCollider = GetComponent<SphereCollider>();
+            if (sphereCollider != null)
+                Gizmos.DrawWireSphere(sphereCollider.center + transform.position, sphereCollider.radius);
+
+            Gizmos.DrawIcon(transform.position, "Trigger.png");
+        }
     }
 }
