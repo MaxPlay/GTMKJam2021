@@ -141,7 +141,11 @@ namespace GMTK2021.Gameplay
             }
             currentSpeed = Vector2.zero;
             animator.SetFloat("MoveSpeed", rigidbody.velocity.magnitude);
-            rigidbody.velocity = new Vector3(rigidbody.velocity.x, fallspeed, rigidbody.velocity.z);
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position,Vector3.down * 10, out hit))
+            {
+                rigidbody.velocity = new Vector3(rigidbody.velocity.x, Mathf.Min(-(hit.distance * 8), -fallspeed), rigidbody.velocity.z);
+            }
         }
 
         private void Update()
