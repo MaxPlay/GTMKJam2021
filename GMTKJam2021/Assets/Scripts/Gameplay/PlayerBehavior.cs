@@ -30,6 +30,10 @@ namespace GMTK2021.Gameplay
 
         public int Fuel => healthFuelValues.B;
 
+        public int MaxHealth => healthFuelValues.MaxA;
+
+        public int MaxFuel => healthFuelValues.MaxB;
+
         public void Fire()
         {
             if (Fuel > 0)
