@@ -22,6 +22,12 @@ namespace GMTK2021.Gameplay
         private Transform stomachTransform;
 
         [SerializeField]
+        GameObject cameraFrontHandler;
+
+        [SerializeField]
+        CameraFHandler cameraHandlerPrefab;
+
+        [SerializeField]
         float fuelReloadCooldown = 1;
         float fuelReloadTimer = -999;
 
@@ -151,6 +157,9 @@ namespace GMTK2021.Gameplay
             meshRoot = transform.GetChild(0);
             healthFuelValues = new JoinedValues(100, 50, 50, 50, 50);
             flamethrower = GetComponentInChildren<FlamethrowerBehavior>();
+            CameraFHandler cameraF = Instantiate(cameraHandlerPrefab,transform.position,new Quaternion(),null);
+            cameraF.player = gameObject;
+            cameraF.frontHandler = cameraFrontHandler;
             Debug.Assert(flamethrower);
         }
 
