@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 899833411079410524}
   - component: {fileID: 4249904661030852136}
   - component: {fileID: -3532283628362840097}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Railing2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7641727898905524172
 Transform:
