@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GMTK2021.Gameplay.Enemy;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace GMTK2021.UI
@@ -16,13 +17,30 @@ namespace GMTK2021.UI
         [SerializeField]
         GameObject YouDiedText;
 
+        [SerializeField]
+        GameObject VictoryText;
+
+        private BuggyBehavior boss;
+
         float deathCooldown = 5;
         float deathTimer = -999;
+
+        bool hasBoss = false;
 
         private void Start()
         {
             gameManager = FindObjectOfType<GameManager>();
             Debug.Assert(gameManager);
+            BuggyBehavior[] enemies = FindObjectsOfType<BuggyBehavior>();
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i].IsBossEnemy)
+                {
+                    boss = enemies[i];
+                    hasBoss = true;
+                    break;
+                }
+            }
         }
 
         private void Update()
@@ -40,6 +58,10 @@ namespace GMTK2021.UI
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
+            }
+            if(hasBoss && !boss)
+            {
+                VictoryText.SetActive(true);
             }
         }
     }

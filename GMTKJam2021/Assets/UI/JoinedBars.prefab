@@ -1060,7 +1060,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 6672030619435129944}
   fuelBar: {fileID: 3664806417956328740}
-  gameManager: {fileID: 0}
+  YouDiedText: {fileID: 0}
+  VictoryText: {fileID: 0}
 --- !u!222 &8508578742309378485
 CanvasRenderer:
   m_ObjectHideFlags: 0

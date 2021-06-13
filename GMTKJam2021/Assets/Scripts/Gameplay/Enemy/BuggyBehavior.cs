@@ -25,6 +25,8 @@ namespace GMTK2021.Gameplay.Enemy
         [SerializeField]
         private bool isBossEnemy = false;
 
+        public bool IsBossEnemy { get => isBossEnemy; }
+
         [SerializeField]
         private GameObject spawnableEnemy;
 
