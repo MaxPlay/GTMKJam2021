@@ -33,9 +33,6 @@ namespace GMTK2021.UI
         private Gradient delayColor;
 
         [SerializeField]
-        private Image background;
-
-        [SerializeField]
         private Image foregroundBar;
 
         [SerializeField]
@@ -109,7 +106,7 @@ namespace GMTK2021.UI
         {
             delayedBar.fillOrigin = (int)direction;
             foregroundBar.fillOrigin = (int)direction;
-            MaximumBar.fillOrigin = 1 - (int)direction;
+            //MaximumBar.fillOrigin = 1 - (int)direction;
             RefreshBars();
             sleeping = true;
         }
@@ -153,7 +150,10 @@ namespace GMTK2021.UI
         private void SetMaxBarValues(float value)
         {
             value = Mathf.Clamp01(value);
-            MaximumBar.fillAmount = 1 - value;
+            RectTransform rectTransform = MaximumBar.transform as RectTransform;
+            rectTransform.anchoredPosition = 
+                new Vector2(direction == Image.OriginHorizontal.Left ? value * rectTransform.sizeDelta.x : - value * rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
+            //MaximumBar.fillAmount = 1 - value;
         }
 
         private float GetPercentage(float a, float b, float x)
