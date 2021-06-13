@@ -21,6 +21,9 @@ namespace GMTK2021.UI
         private float delayedValue;
 
         [SerializeField]
+        private float maximumValue;
+
+        [SerializeField]
         private Image.OriginHorizontal direction;
 
         [SerializeField]
@@ -30,13 +33,13 @@ namespace GMTK2021.UI
         private Gradient delayColor;
 
         [SerializeField]
-        private Image background;
-
-        [SerializeField]
         private Image foregroundBar;
 
         [SerializeField]
         private Image delayedBar;
+
+        [SerializeField]
+        private Image MaximumBar;
 
         private bool sleeping;
 
@@ -60,6 +63,8 @@ namespace GMTK2021.UI
                 StartCoroutine(AnimateDelay());
             }
         }
+
+        public void SetMaxValue(float value) => maximumValue = value;
 
         public IEnumerator AnimateDelay()
         {
@@ -101,6 +106,7 @@ namespace GMTK2021.UI
         {
             delayedBar.fillOrigin = (int)direction;
             foregroundBar.fillOrigin = (int)direction;
+            //MaximumBar.fillOrigin = 1 - (int)direction;
             RefreshBars();
             sleeping = true;
         }
@@ -112,6 +118,8 @@ namespace GMTK2021.UI
 
             float relativeCurrentValue = currentValue / maxValue;
             float relativeDelayedValue = delayedValue / maxValue;
+            float relativeMaxedValue = maximumValue / maxValue;
+            SetMaxBarValues(relativeMaxedValue);
             if (delayedValue > currentValue)
             {
                 SetForegroundBarValues(relativeCurrentValue);
@@ -122,6 +130,7 @@ namespace GMTK2021.UI
                 SetForegroundBarValues(relativeDelayedValue);
                 SetDelayedBarValues(relativeCurrentValue);
             }
+            
         }
 
         private void SetForegroundBarValues(float value)
@@ -136,6 +145,15 @@ namespace GMTK2021.UI
             value = Mathf.Clamp01(value);
             delayedBar.fillAmount = value;
             delayedBar.color = delayColor.Evaluate(value);
+        }
+
+        private void SetMaxBarValues(float value)
+        {
+            value = Mathf.Clamp01(value);
+            RectTransform rectTransform = MaximumBar.transform as RectTransform;
+            rectTransform.anchoredPosition = 
+                new Vector2(direction == Image.OriginHorizontal.Left ? value * rectTransform.sizeDelta.x : - value * rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
+            //MaximumBar.fillAmount = 1 - value;
         }
 
         private float GetPercentage(float a, float b, float x)

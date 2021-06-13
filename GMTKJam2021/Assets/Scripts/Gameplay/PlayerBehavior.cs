@@ -22,6 +22,20 @@ namespace GMTK2021.Gameplay
         private Transform stomachTransform;
 
         [SerializeField]
+        GameObject cameraFrontHandler;
+
+        [SerializeField]
+        CameraFHandler cameraHandlerPrefab;
+
+        [SerializeField]
+        float fuelReloadCooldown = 1;
+        float fuelReloadTimer = -999;
+
+        [SerializeField]
+        float fuelReloadSpeedCooldown = 0.2f;
+        float fuelReloadSpeedTimer = -999;
+
+        [SerializeField]
         private float speed = 1;
 
         Vector3 theirPosition = Vector3.zero;
@@ -30,11 +44,17 @@ namespace GMTK2021.Gameplay
 
         public int Fuel => healthFuelValues.B;
 
+        public int MaxHealth => healthFuelValues.MaxA;
+
+        public int MaxFuel => healthFuelValues.MaxB;
+
         public void Fire()
         {
             if (Fuel > 0)
             {
                 healthFuelValues.AddToB(-flamethrower.Activate());
+                fuelReloadTimer = Time.time;
+                fuelReloadSpeedTimer = 0;
             }
         }
 
@@ -115,6 +135,11 @@ namespace GMTK2021.Gameplay
         private void Update()
         {
             flamethrower.transform.rotation = meshRoot.rotation;
+            if(Time.time > fuelReloadCooldown + fuelReloadTimer && Time.time > fuelReloadSpeedTimer + fuelReloadSpeedCooldown)
+            {
+                fuelReloadSpeedTimer = Time.time;
+                healthFuelValues.AddToB(1);
+            }
         }
 
         public void LookAt(Vector3 location)
@@ -132,6 +157,9 @@ namespace GMTK2021.Gameplay
             meshRoot = transform.GetChild(0);
             healthFuelValues = new JoinedValues(100, 50, 50, 50, 50);
             flamethrower = GetComponentInChildren<FlamethrowerBehavior>();
+            CameraFHandler cameraF = Instantiate(cameraHandlerPrefab,transform.position,new Quaternion(),null);
+            cameraF.player = gameObject;
+            cameraF.frontHandler = cameraFrontHandler;
             Debug.Assert(flamethrower);
         }
 

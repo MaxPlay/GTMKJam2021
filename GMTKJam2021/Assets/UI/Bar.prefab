@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7947677391243581002}
   - component: {fileID: 7947677391243581003}
   m_Layer: 5
-  m_Name: HealthBar
+  m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,6 +129,7 @@ MonoBehaviour:
   maxValue: 100
   currentValue: 50
   delayedValue: 50
+  maximumValue: 0
   direction: 1
   color:
     serializedVersion: 2
@@ -191,6 +192,7 @@ MonoBehaviour:
   background: {fileID: 7947677391083574845}
   foregroundBar: {fileID: 7947677391298191045}
   delayedBar: {fileID: 7947677391827793601}
+  MaximumBar: {fileID: 0}
   transition:
     serializedVersion: 2
     m_Curve:

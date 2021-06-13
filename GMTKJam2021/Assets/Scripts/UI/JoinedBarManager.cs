@@ -21,7 +21,9 @@ namespace GMTK2021.UI
         private void Update()
         {
             healthBar.SetValue(gameManager.Player.Health);
+            healthBar.SetMaxValue(gameManager.Player.MaxHealth);
             fuelBar.SetValue(gameManager.Player.Fuel);
+            fuelBar.SetMaxValue(gameManager.Player.MaxFuel);
         }
     }
 }
