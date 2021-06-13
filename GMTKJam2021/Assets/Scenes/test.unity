@@ -1581,18 +1581,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7452521170889328922, guid: cc121146b4c78df478582d1ec01d5754, type: 3}
-      propertyPath: isBossEnemy
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7452521170889328922, guid: cc121146b4c78df478582d1ec01d5754, type: 3}
-      propertyPath: spawnableEnemy
-      value: 
-      objectReference: {fileID: 7187793224459609648, guid: e7d0120a95aa799418fcf3cef0facdba, type: 3}
-    - target: {fileID: 7452521170889328922, guid: cc121146b4c78df478582d1ec01d5754, type: 3}
-      propertyPath: bossEnemySpawnCooldown
-      value: 0.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc121146b4c78df478582d1ec01d5754, type: 3}
 --- !u!1001 &9167616680280898875

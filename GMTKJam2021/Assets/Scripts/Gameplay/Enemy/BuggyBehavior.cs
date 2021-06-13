@@ -44,17 +44,21 @@ namespace GMTK2021.Gameplay.Enemy
 
         public bool CheckForPlayer()
         {
-            Vector3 playerLocation = GameManager.Player.transform.position;
-            if (Physics.Raycast(transform.position, playerLocation - transform.position, out RaycastHit hitInfo, distanceToPlayer))
+            if(GameManager.Player)
             {
-                if (hitInfo.transform.CompareTag("Player"))
+                Vector3 playerLocation = GameManager.Player.transform.position;
+                if (Physics.Raycast(transform.position, playerLocation - transform.position, out RaycastHit hitInfo, distanceToPlayer))
                 {
-                    TargetPosition = hitInfo.point;
-                    return true;
+                    if (hitInfo.transform.CompareTag("Player"))
+                    {
+                        TargetPosition = hitInfo.point;
+                        return true;
+                    }
                 }
+                if (NavMeshAgent.isStopped)
+                    TargetPosition = null;
+                return false;
             }
-            if (NavMeshAgent.isStopped)
-                TargetPosition = null;
             return false;
         }
 

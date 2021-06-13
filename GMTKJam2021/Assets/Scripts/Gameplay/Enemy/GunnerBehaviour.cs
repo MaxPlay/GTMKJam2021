@@ -31,20 +31,24 @@ public class GunnerBehaviour : EnemyBehavior
 
     public int CheckForPlayer()
     {
-        Vector3 playerLocation = GameManager.Player.transform.position;
-        if (Physics.Raycast(transform.position, playerLocation - transform.position, out RaycastHit hitInfo, distanceToPlayer))
+        if (GameManager.Player)
         {
-            if (hitInfo.transform.CompareTag("Player"))
+            Vector3 playerLocation = GameManager.Player.transform.position;
+            if (Physics.Raycast(transform.position, playerLocation - transform.position, out RaycastHit hitInfo, distanceToPlayer))
             {
-                TargetPosition = hitInfo.point;
-                if ((transform.position - playerLocation).sqrMagnitude < Mathf.Pow(shootDistance, 2) && 
-                    Vector3.Dot(transform.forward, (playerLocation - transform.position).normalized) > 0.9f )
-                    return 2;
-                return 1;
+                if (hitInfo.transform.CompareTag("Player"))
+                {
+                    TargetPosition = hitInfo.point;
+                    if ((transform.position - playerLocation).sqrMagnitude < Mathf.Pow(shootDistance, 2) &&
+                        Vector3.Dot(transform.forward, (playerLocation - transform.position).normalized) > 0.9f)
+                        return 2;
+                    return 1;
+                }
             }
+            if (NavMeshAgent.isStopped)
+                TargetPosition = null;
+            return 0;
         }
-        if (NavMeshAgent.isStopped)
-            TargetPosition = null;
         return 0;
     }
 
