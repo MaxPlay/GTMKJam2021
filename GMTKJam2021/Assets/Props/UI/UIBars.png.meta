@@ -101,9 +101,9 @@ TextureImporter:
       name: UIBars_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 237
-        width: 566
+        x: 6
+        y: 287
+        width: 565
         height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -123,7 +123,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 148
-        y: 137
+        y: 187
         width: 225
         height: 90
       alignment: 0
@@ -143,10 +143,10 @@ TextureImporter:
       name: UIBars_2
       rect:
         serializedVersion: 2
-        x: 29
-        y: 14
-        width: 566
-        height: 100
+        x: 30
+        y: 43
+        width: 565
+        height: 121
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
