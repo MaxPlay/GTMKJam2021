@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: da9f572098668c04e8fea07d22e96e0e
-folderAsset: yes
-DefaultImporter:
+guid: 0b2d967226e17ff4a94ce370de171be0
+labels:
+- Light
+PrefabImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
