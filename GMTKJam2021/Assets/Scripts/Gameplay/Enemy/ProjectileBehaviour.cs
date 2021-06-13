@@ -57,9 +57,9 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             if(other.CompareTag("Player") && type == ProjectileType.Bullet)
             {
+                Destroy(gameObject);
                 other.GetComponent<PlayerBehavior>().Damage(damage);
             }
-            Destroy(gameObject);
         }
     }
 
