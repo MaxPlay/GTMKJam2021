@@ -59,7 +59,8 @@ namespace GMTK2021.Gameplay
                 StartParticles();
             if (!activeLastFrame && ParticleSystem.emission.enabled)
                 StopParticles();
-            if(ParticleSystem.emission.enabled && Time.time > spawnTriggerTimer + spawnTriggerCooldown)
+
+            if (ParticleSystem.emission.enabled && Time.time > spawnTriggerTimer + spawnTriggerCooldown)
             {
                 spawnTriggerTimer = Time.time;
                 ProjectileBehaviour newProjectile = Instantiate(damageTriggerPrefab, transform.position, transform.rotation, null);
@@ -77,6 +78,7 @@ namespace GMTK2021.Gameplay
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(lookatTarget.position, 0.2f);
         }
 
         private void StartParticles()
