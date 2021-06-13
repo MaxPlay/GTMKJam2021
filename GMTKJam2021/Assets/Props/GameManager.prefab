@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnContainer: {fileID: 11400000, guid: 33eeaed664e711d4289ff8cd3e9788ff, type: 2}
+  hudScene:
+    scene: {fileID: 102900000, guid: cbbc51212ea88644e9b39ef1d0e21f0a, type: 3}
+    name: HUD
