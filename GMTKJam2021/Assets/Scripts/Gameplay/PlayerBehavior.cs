@@ -27,6 +27,10 @@ namespace GMTK2021.Gameplay
         [SerializeField]
         CameraFHandler cameraHandlerPrefab;
         CameraFHandler cameraHandler;
+
+        [SerializeField]
+        GameObject explosionPrefab;
+
         public CameraFHandler CameraHandler => cameraHandler;
 
         [SerializeField]
@@ -69,7 +73,10 @@ namespace GMTK2021.Gameplay
         private void HealthCheck()
         {
             if (Health <= 0)
-                Debug.Log("Dieded!");
+            {
+                Instantiate(explosionPrefab, transform.position, transform.rotation, null);
+                Destroy(gameObject);
+            }
         }
 
         public void Heal(int amount)

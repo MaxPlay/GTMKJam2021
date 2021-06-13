@@ -143,6 +143,7 @@ MonoBehaviour:
   stomachTransform: {fileID: 5783647555539224655}
   cameraFrontHandler: {fileID: 7416423568976743019}
   cameraHandlerPrefab: {fileID: 2999610769560955941, guid: 7e9885402f15e8841997a11c0c5788d8, type: 3}
+  explosionPrefab: {fileID: 6550480740783194947, guid: fa0620e684dfdfd43b34c2f106146b38, type: 3}
   fuelReloadCooldown: 1
   fuelReloadSpeedCooldown: 0.25
   speed: 2
