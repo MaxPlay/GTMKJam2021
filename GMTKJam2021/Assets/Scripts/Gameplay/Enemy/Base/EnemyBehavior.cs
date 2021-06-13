@@ -140,7 +140,7 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         private void OnTriggerStay(Collider other)
         {
-            if(other.tag == "Fire")
+            if(other.CompareTag("Fire"))
             {
                 isInFire = true;
                 isOnFire = true;

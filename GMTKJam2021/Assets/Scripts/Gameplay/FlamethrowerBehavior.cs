@@ -15,6 +15,16 @@ namespace GMTK2021.Gameplay
         [SerializeField]
         Transform lookatTarget;
 
+        [SerializeField]
+        ProjectileBehaviour damageTriggerPrefab;
+
+        [SerializeField]
+        float spawnTriggerCooldown = 0.5f;
+        float spawnTriggerTimer = -9999;
+
+        [SerializeField]
+        float fireSpeed;
+
         private float fuelTimer;
         private bool activeLastFrame;
 
@@ -49,6 +59,12 @@ namespace GMTK2021.Gameplay
                 StartParticles();
             if (!activeLastFrame && ParticleSystem.emission.enabled)
                 StopParticles();
+            if(ParticleSystem.emission.enabled && Time.time > spawnTriggerTimer + spawnTriggerCooldown)
+            {
+                spawnTriggerTimer = Time.time;
+                ProjectileBehaviour newProjectile = Instantiate(damageTriggerPrefab, transform.position, transform.rotation, null);
+                newProjectile.Velocity = (lookatTarget.position - transform.position).normalized * fireSpeed;
+            }
 
             activeLastFrame = false;
 
