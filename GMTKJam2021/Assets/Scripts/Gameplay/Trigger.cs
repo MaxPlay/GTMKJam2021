@@ -20,6 +20,9 @@ namespace GMTK2021.Gameplay
         [SerializeField]
         private bool triggerOnce;
 
+        [SerializeField]
+        private bool isEnabled = true;
+
         public bool Enabled
         {
             get => isEnabled;
@@ -28,9 +31,10 @@ namespace GMTK2021.Gameplay
 
         public UnityEvent OnEnter;
         public UnityEvent OnExit;
+        public UnityEvent OnExitAll;
 
         [SerializeField]
-        private bool isEnabled = true;
+        private Color triggerColor = Color.blue;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -59,7 +63,10 @@ namespace GMTK2021.Gameplay
         private void TriggerEnter()
         {
             if (isEnabled)
+            {
+                Debug.Log($"Trigger Enter: {gameObject.name}", gameObject);
                 OnEnter.Invoke();
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -72,20 +79,36 @@ namespace GMTK2021.Gameplay
                 if (gameObjectsInTrigger.Contains(other.gameObject))
                 {
                     gameObjectsInTrigger.Remove(other.gameObject);
-                    TriggerExit();
                 }
+                TriggerExit();
+
+                if (gameObjectsInTrigger.Count == 0)
+                    TriggerExitAll();
             }
         }
 
         private void TriggerExit()
         {
             if (isEnabled)
+            {
+                Debug.Log($"Trigger Exit: {gameObject.name}", gameObject);
                 OnExit.Invoke();
+            }
         }
+
+        private void TriggerExitAll()
+        {
+            if (isEnabled)
+            {
+                Debug.Log($"Trigger Exit All: {gameObject.name}", gameObject);
+                OnExitAll.Invoke();
+            }
+        }
+
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = triggerColor;
             var boxCollider = GetComponent<BoxCollider>();
             if (boxCollider != null)
                 Gizmos.DrawWireCube(boxCollider.center + transform.position, boxCollider.size);
@@ -94,7 +117,7 @@ namespace GMTK2021.Gameplay
             if (sphereCollider != null)
                 Gizmos.DrawWireSphere(sphereCollider.center + transform.position, sphereCollider.radius);
 
-            Gizmos.DrawIcon(transform.position, "Trigger.png");
+            Gizmos.DrawIcon(transform.position, "Trigger.png", true, triggerColor);
         }
     }
 }

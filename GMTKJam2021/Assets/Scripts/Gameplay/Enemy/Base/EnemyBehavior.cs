@@ -56,6 +56,7 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         [SerializeField]
         private bool enemyActive = true;
+        private int destructionTimer = -1;
 
         protected virtual void Start()
         {
@@ -127,6 +128,14 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         private void FixedUpdate()
         {
+            if (destructionTimer > 0)
+            {
+                --destructionTimer;
+                if (destructionTimer <= 0)
+                    Destroy(gameObject);
+                return;
+            }
+
             if (isOnFire && !isInFire && onFireTimer + fireExtinguishCooldown > Time.time)
             {
                 if (onFireDamageTimer + onFireDamageCooldown < Time.time)
@@ -160,7 +169,8 @@ namespace GMTK2021.Gameplay.Enemy.Base
             {
                 if (explosionPrefab)
                     Instantiate(explosionPrefab, transform.position, transform.rotation, null);
-                Destroy(gameObject);
+                transform.position = new Vector3(-10000, -10000, -10000); // Exit all triggers
+                destructionTimer = 10;
             }
         }
 
