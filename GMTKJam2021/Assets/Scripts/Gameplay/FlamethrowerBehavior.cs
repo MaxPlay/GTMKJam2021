@@ -10,25 +10,25 @@ namespace GMTK2021.Gameplay
     public class FlamethrowerBehavior : MonoBehaviour
     {
         [SerializeField]
-        private ParticleSystem flameThrowerParticlesPrefab;
+        private float fuelConsumptionPerSecond;
 
         [SerializeField]
-        private float fuelConsumptionPerSecond;
+        Transform lookatTarget;
 
         private float fuelTimer;
         private bool activeLastFrame;
 
-        private ParticleSystem currentParticleSystem;
+        [SerializeField]
+        private ParticleSystem ParticleSystem;
 
         private void Start()
         {
-            currentParticleSystem = Instantiate(flameThrowerParticlesPrefab, transform.position, transform.rotation, transform);
             StopParticles();
         }
 
         private void StopParticles()
         {
-            var emission = currentParticleSystem.emission;
+            var emission = ParticleSystem.emission;
             emission.enabled = false;
         }
 
@@ -45,20 +45,27 @@ namespace GMTK2021.Gameplay
 
         private void Update()
         {
-            if (activeLastFrame && !currentParticleSystem.emission.enabled)
+            if (activeLastFrame && !ParticleSystem.emission.enabled)
                 StartParticles();
-            if (!activeLastFrame && currentParticleSystem.emission.enabled)
+            if (!activeLastFrame && ParticleSystem.emission.enabled)
                 StopParticles();
 
             activeLastFrame = false;
 
             if (fuelTimer > 0)
                 fuelTimer -= Time.deltaTime;
+
+            ParticleSystem.transform.LookAt(lookatTarget.position);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
         }
 
         private void StartParticles()
         {
-            var emission = currentParticleSystem.emission;
+            var emission = ParticleSystem.emission;
             emission.enabled = true;
         }
     }
