@@ -44,7 +44,7 @@ namespace GMTK2021.Gameplay
         [SerializeField]
         private float speed = 1;
 
-        Vector3 theirPosition = Vector3.zero;
+        Vector3 lookAtPosition = Vector3.zero;
 
         public int Health => healthFuelValues.A;
 
@@ -113,15 +113,15 @@ namespace GMTK2021.Gameplay
             Vector3 myPosition = meshRoot.position;
             if (rigidbody.velocity.magnitude < 0.1f)
             {
-                meshRoot.transform.rotation = Quaternion.LookRotation(theirPosition - myPosition, Vector3.up);
-                stomachTransform.rotation = Quaternion.LookRotation(myPosition - theirPosition, Vector3.up);
+                meshRoot.transform.rotation = Quaternion.LookRotation(lookAtPosition - myPosition, Vector3.up);
+                stomachTransform.rotation = Quaternion.LookRotation(myPosition - lookAtPosition, Vector3.up);
                 animator.SetBool("Backwards", false);
             }
             else
             {
                 Quaternion targetWalkRotation;
                 Quaternion targetLookRotation;
-                Vector3 stomachDirection = myPosition - theirPosition;
+                Vector3 stomachDirection = myPosition - lookAtPosition;
                 stomachDirection.y = 0;
                 Vector3 meshRootDirection = rigidbody.velocity;
                 meshRootDirection.y = 0;
@@ -129,20 +129,19 @@ namespace GMTK2021.Gameplay
                 if (Vector3.Dot(meshRootDirection, -stomachDirection) < 0)
                 {
                     targetWalkRotation = Quaternion.LookRotation(-rigidbody.velocity, Vector3.up);
-                    targetLookRotation = Quaternion.LookRotation(myPosition - theirPosition, Vector3.up);
+                    targetLookRotation = Quaternion.LookRotation(myPosition - lookAtPosition, Vector3.up);
                 }
                 else
                 {
                     targetWalkRotation = Quaternion.LookRotation(rigidbody.velocity, Vector3.up);
-                    targetLookRotation = Quaternion.LookRotation(myPosition - theirPosition, Vector3.up);
+                    targetLookRotation = Quaternion.LookRotation(myPosition - lookAtPosition, Vector3.up);
                 }
                 meshRoot.transform.rotation = Quaternion.Lerp(targetWalkRotation, meshRoot.transform.rotation, 0.05f);
                 stomachTransform.rotation = targetLookRotation;
             }
             currentSpeed = Vector2.zero;
             animator.SetFloat("MoveSpeed", rigidbody.velocity.magnitude);
-            RaycastHit hit;
-            if(Physics.Raycast(transform.position,Vector3.down * 10, out hit))
+            if (Physics.Raycast(transform.position, Vector3.down * 10, out RaycastHit hit))
             {
                 rigidbody.velocity = new Vector3(rigidbody.velocity.x, Mathf.Min(-(hit.distance * 8), -fallspeed), rigidbody.velocity.z);
             }
@@ -160,11 +159,7 @@ namespace GMTK2021.Gameplay
 
         public void LookAt(Vector3 location)
         {
-            Vector3 myPosition = meshRoot.position;
-            //myPosition.y = 0;
-            Vector3 theirPosition = location;
-            //theirPosition.y = 0;
-            this.theirPosition = theirPosition;
+            lookAtPosition = location;
         }
 
         private void Awake()

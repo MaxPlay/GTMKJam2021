@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7187793224459609648, guid: e7d0120a95aa799418fcf3cef0facdba, type: 3}
       propertyPath: m_Name
-      value: Chonky Buggy Enemy
+      value: Chonky Buggy Enemy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7187793224459609648, guid: e7d0120a95aa799418fcf3cef0facdba, type: 3}
       propertyPath: m_IsActive
