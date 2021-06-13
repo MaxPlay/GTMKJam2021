@@ -42,6 +42,9 @@ namespace GMTK2021.Gameplay
         [SerializeField]
         private ParticleSystem ParticleSystem;
 
+        [SerializeField]
+        AudioSource audio;
+
         private void Start()
         {
             StopParticles();
@@ -82,10 +85,12 @@ namespace GMTK2021.Gameplay
             if(ParticleSystem.emission.enabled)
             {
                 currentFlameIntensity = Mathf.Clamp(currentFlameIntensity + flameIntensityChangeSpeed * Time.deltaTime, minFlameIntensity, maxFlameIntensity);
+                audio.volume = Mathf.Lerp(audio.volume, 1, 0.5f);
             }
             else
             {
                 currentFlameIntensity = Mathf.Clamp(currentFlameIntensity - flameIntensityChangeSpeed * Time.deltaTime, minFlameIntensity, maxFlameIntensity);
+                audio.volume = Mathf.Lerp(audio.volume, 0, 0.5f);
             }
             flameLight.intensity = currentFlameIntensity;
 
