@@ -26,6 +26,8 @@ namespace GMTK2021.Gameplay
 
         [SerializeField]
         CameraFHandler cameraHandlerPrefab;
+        CameraFHandler cameraHandler;
+        public CameraFHandler CameraHandler => cameraHandler;
 
         [SerializeField]
         float fuelReloadCooldown = 1;
@@ -151,15 +153,19 @@ namespace GMTK2021.Gameplay
             this.theirPosition = theirPosition;
         }
 
+        private void Awake()
+        {
+            cameraHandler = Instantiate(cameraHandlerPrefab, transform.position, new Quaternion(), null);
+            cameraHandler.player = gameObject;
+            cameraHandler.frontHandler = cameraFrontHandler;
+        }
+
         private void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
             meshRoot = transform.GetChild(0);
             healthFuelValues = new JoinedValues(100, 50, 50, 50, 50);
             flamethrower = GetComponentInChildren<FlamethrowerBehavior>();
-            CameraFHandler cameraF = Instantiate(cameraHandlerPrefab,transform.position,new Quaternion(),null);
-            cameraF.player = gameObject;
-            cameraF.frontHandler = cameraFrontHandler;
             Debug.Assert(flamethrower);
         }
 

@@ -16,7 +16,7 @@ namespace GMTK2021.Gameplay
         public void Start()
         {
             player = GetComponent<PlayerBehavior>();
-            mainCamera = Camera.main;
+            mainCamera = player.CameraHandler.transform.GetChild(0).gameObject.GetComponent<Camera>();
         }
 
         private void Update()
@@ -33,7 +33,7 @@ namespace GMTK2021.Gameplay
                 player.Fire();
 
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (new Plane(Vector3.up, Vector3.zero).Raycast(ray, out float hitDistance))
+            if (new Plane(Vector3.up, transform.position).Raycast(ray, out float hitDistance))
             {
                 player.LookAt(ray.GetPoint(hitDistance));
             }
@@ -43,6 +43,12 @@ namespace GMTK2021.Gameplay
 
             if (Input.GetKey(KeyCode.Q))
                 player.ShiftToFuel();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(mainCamera.ScreenPointToRay(Input.mousePosition).origin,
+                mainCamera.ScreenPointToRay(Input.mousePosition).origin + mainCamera.ScreenPointToRay(Input.mousePosition).direction);
         }
     }
 }
