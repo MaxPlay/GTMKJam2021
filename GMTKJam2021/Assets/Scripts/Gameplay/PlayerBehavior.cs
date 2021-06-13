@@ -22,6 +22,14 @@ namespace GMTK2021.Gameplay
         private Transform stomachTransform;
 
         [SerializeField]
+        float fuelReloadCooldown = 1;
+        float fuelReloadTimer = -999;
+
+        [SerializeField]
+        float fuelReloadSpeedCooldown = 0.2f;
+        float fuelReloadSpeedTimer = -999;
+
+        [SerializeField]
         private float speed = 1;
 
         Vector3 theirPosition = Vector3.zero;
@@ -39,6 +47,8 @@ namespace GMTK2021.Gameplay
             if (Fuel > 0)
             {
                 healthFuelValues.AddToB(-flamethrower.Activate());
+                fuelReloadTimer = Time.time;
+                fuelReloadSpeedTimer = 0;
             }
         }
 
@@ -119,6 +129,11 @@ namespace GMTK2021.Gameplay
         private void Update()
         {
             flamethrower.transform.rotation = meshRoot.rotation;
+            if(Time.time > fuelReloadCooldown + fuelReloadTimer && Time.time > fuelReloadSpeedTimer + fuelReloadSpeedCooldown)
+            {
+                fuelReloadSpeedTimer = Time.time;
+                healthFuelValues.AddToB(1);
+            }
         }
 
         public void LookAt(Vector3 location)

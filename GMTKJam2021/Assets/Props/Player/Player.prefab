@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3132715533877647527}
   stomachTransform: {fileID: 5783647555539224655}
+  fuelReloadCooldown: 1
+  fuelReloadSpeedCooldown: 0.25
   speed: 2
 --- !u!114 &3589991148462064716
 MonoBehaviour:
@@ -135,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82e57a1644e42847a6555f0fa10bfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelConsumptionPerSecond: 0.3
+  fuelConsumptionPerSecond: 0.05
   lookatTarget: {fileID: 8596312876111741354}
   damageTriggerPrefab: {fileID: 5088900557433570321, guid: 00665dda70824ba4ebdb599f8c282b45, type: 3}
   spawnTriggerCooldown: 0.2
