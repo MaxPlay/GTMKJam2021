@@ -52,7 +52,11 @@ namespace GMTK2021.Gameplay
 
         public void Heal(int amount)
         {
+            int prevValue = healthFuelValues.A;
             healthFuelValues.AddToA(amount);
+            int diff = amount - (healthFuelValues.A - prevValue);
+            healthFuelValues.AddToB(diff);
+
         }
 
         public void Move(Vector2 moveSpeed)
@@ -126,7 +130,7 @@ namespace GMTK2021.Gameplay
         {
             rigidbody = GetComponent<Rigidbody>();
             meshRoot = transform.GetChild(0);
-            healthFuelValues = new JoinedValues(200, 50, 50);
+            healthFuelValues = new JoinedValues(100, 50, 50, 50, 50);
             flamethrower = GetComponentInChildren<FlamethrowerBehavior>();
             Debug.Assert(flamethrower);
         }

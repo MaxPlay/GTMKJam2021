@@ -7,26 +7,54 @@ namespace GMTK2021.Gameplay
         private int a;
         private int b;
 
+        private int maxA;
+        private int maxB;
+
         public int A => a;
         public int B => b;
+        public int MaxA => maxA;
+        public int MaxB => maxB;
 
         public int TotalValue { get; }
 
         public int CurrentTotal => A + B;
 
-        public void AddToA(int amount) => a += GetMaximumPossibleChangeAmount(amount);
+        public void AddToA(int amount)
+        {
+            int targetAmount = GetMaximumPossibleChangeAmount(amount);
+            if (a + targetAmount > maxA)
+                a = maxA;
+            else
+                a += GetMaximumPossibleChangeAmount(amount);
+        }
 
-        public void AddToB(int amount) => b += GetMaximumPossibleChangeAmount(amount);
+        public void AddToB(int amount)
+        {
+            int targetAmount = GetMaximumPossibleChangeAmount(amount);
+            if (b + targetAmount > maxB)
+                b = maxA;
+            else
+                b += GetMaximumPossibleChangeAmount(amount);
+        }
 
-        public void ShiftToA(int amount) => ShiftTo(amount, ref b, ref a);
+        public void ShiftToA(int amount) 
+        {
+            ShiftTo(amount, ref b, ref a, ref maxB, ref maxA);
+        }
+        public void ShiftToB(int amount)
+        {
+            ShiftTo(amount, ref a, ref b, ref maxA, ref maxB);
+        }
 
-        public void ShiftToB(int amount) => ShiftTo(amount, ref a, ref b);
-
-        private void ShiftTo(int amount, ref int from, ref int to)
+        private void ShiftTo(int amount, ref int from, ref int to, ref int fromMax, ref int toMax)
         {
             if (from < amount)
                 amount = from;
             from -= amount;
+            if (fromMax < amount)
+                amount = from;
+            fromMax -= amount;
+            toMax += amount;
             to += amount;
         }
 
@@ -38,12 +66,14 @@ namespace GMTK2021.Gameplay
             return amount;
         }
 
-        public JoinedValues(int totalValue, int startA, int startB)
+        public JoinedValues(int totalValue, int startA, int startB, int startMaxA, int startMaxB)
         {
             TotalValue = totalValue;
+            maxA = startMaxA;
+            maxB = startMaxB;
             a = startA;
             b = startB;
-            Debug.Assert(a + b <= totalValue / 2, "The start values for the joined values may not exceed the total value.");
+            Debug.Assert(a + b <= totalValue, "The start values for the joined values may not exceed the total value.");
         }
     }
 }
