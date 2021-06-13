@@ -19,8 +19,19 @@ namespace GMTK2021.Gameplay
         ProjectileBehaviour damageTriggerPrefab;
 
         [SerializeField]
+        Light flameLight;
+
+        [SerializeField]
         float spawnTriggerCooldown = 0.5f;
         float spawnTriggerTimer = -9999;
+
+        float currentFlameIntensity;
+        [SerializeField]
+        float minFlameIntensity;
+        [SerializeField]
+        float maxFlameIntensity;
+        [SerializeField]
+        float flameIntensityChangeSpeed;
 
         [SerializeField]
         float fireSpeed;
@@ -34,6 +45,7 @@ namespace GMTK2021.Gameplay
         private void Start()
         {
             StopParticles();
+            currentFlameIntensity = minFlameIntensity;
         }
 
         private void StopParticles()
@@ -66,6 +78,16 @@ namespace GMTK2021.Gameplay
                 ProjectileBehaviour newProjectile = Instantiate(damageTriggerPrefab, transform.position, transform.rotation, null);
                 newProjectile.Velocity = (lookatTarget.position - transform.position).normalized * fireSpeed;
             }
+
+            if(ParticleSystem.emission.enabled)
+            {
+                currentFlameIntensity = Mathf.Clamp(currentFlameIntensity + flameIntensityChangeSpeed * Time.deltaTime, minFlameIntensity, maxFlameIntensity);
+            }
+            else
+            {
+                currentFlameIntensity = Mathf.Clamp(currentFlameIntensity - flameIntensityChangeSpeed * Time.deltaTime, minFlameIntensity, maxFlameIntensity);
+            }
+            flameLight.intensity = currentFlameIntensity;
 
             activeLastFrame = false;
 

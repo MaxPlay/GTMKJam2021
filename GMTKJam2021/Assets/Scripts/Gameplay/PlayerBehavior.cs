@@ -99,6 +99,7 @@ namespace GMTK2021.Gameplay
 
         private void FixedUpdate()
         {
+            float fallspeed = rigidbody.velocity.y;
             rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * currentSpeed.x + transform.forward * currentSpeed.y, 0.8f);
 
             Vector3 myPosition = meshRoot.position;
@@ -132,6 +133,7 @@ namespace GMTK2021.Gameplay
             }
             currentSpeed = Vector2.zero;
             animator.SetFloat("MoveSpeed", rigidbody.velocity.magnitude);
+            rigidbody.velocity = new Vector3(rigidbody.velocity.x, fallspeed, rigidbody.velocity.z);
         }
 
         private void Update()
