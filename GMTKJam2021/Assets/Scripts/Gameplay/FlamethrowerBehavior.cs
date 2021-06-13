@@ -43,7 +43,7 @@ namespace GMTK2021.Gameplay
         private ParticleSystem ParticleSystem;
 
         [SerializeField]
-        AudioSource audio;
+        new AudioSource audio;
 
         private void Start()
         {
@@ -82,7 +82,7 @@ namespace GMTK2021.Gameplay
                 newProjectile.Velocity = (lookatTarget.position - transform.position).normalized * fireSpeed;
             }
 
-            if(ParticleSystem.emission.enabled)
+            if (ParticleSystem.emission.enabled)
             {
                 currentFlameIntensity = Mathf.Clamp(currentFlameIntensity + flameIntensityChangeSpeed * Time.deltaTime, minFlameIntensity, maxFlameIntensity);
                 audio.volume = Mathf.Lerp(audio.volume, 1, 0.5f);

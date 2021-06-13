@@ -10,11 +10,11 @@ namespace GMTK2021.UI
         [SerializeField]
         private DelayedBar fuelBar;
 
-        [SerializeField]
         private GameManager gameManager;
 
         private void Start()
         {
+            gameManager = FindObjectOfType<GameManager>();
             Debug.Assert(gameManager);
         }
 

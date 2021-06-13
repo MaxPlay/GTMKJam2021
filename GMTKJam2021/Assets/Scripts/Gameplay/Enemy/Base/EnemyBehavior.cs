@@ -12,6 +12,8 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         private EnemyState currentState = null;
 
+        private Type defaultState = null;
+
         public GameManager GameManager { get; set; }
 
         public NavMeshAgent NavMeshAgent { get; private set; }
@@ -50,6 +52,9 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         int currentHealth;
 
+        [SerializeField]
+        private bool enemyActive = true;
+
         protected virtual void Start()
         {
             currentHealth = maxHealth;
@@ -59,6 +64,18 @@ namespace GMTK2021.Gameplay.Enemy.Base
             if (GameManager == null)
                 GameManager = FindObjectOfType<GameManager>();
             Initialize();
+        }
+
+        public bool EnemyActive
+        {
+            get => enemyActive; set
+            {
+                enemyActive = value;
+                if (!enemyActive)
+                    SetState<SleepState>();
+                else
+                    SetState(defaultState);
+            }
         }
 
         protected abstract void Initialize();
@@ -74,12 +91,19 @@ namespace GMTK2021.Gameplay.Enemy.Base
                 states.Add(typeof(T), enemyState);
                 if (currentState == null)
                     SetState<T>();
+                if (defaultState == null)
+                    defaultState = typeof(T);
             }
         }
 
-        public void SetState<T>() where T : EnemyState
+        public void SetState<T>() where T : EnemyState => SetState(typeof(T));
+
+        private void SetState(Type type)
         {
-            if (states.TryGetValue(typeof(T), out EnemyState enemyState) && currentState != enemyState)
+            if (!enemyActive)
+                return;
+
+            if (states.TryGetValue(type, out EnemyState enemyState) && currentState != enemyState)
             {
                 currentState?.Exit();
                 currentState = enemyState;
@@ -103,7 +127,7 @@ namespace GMTK2021.Gameplay.Enemy.Base
         {
             if (isOnFire && !isInFire && onFireTimer + fireExtinguishCooldown > Time.time)
             {
-                if(onFireDamageTimer + onFireDamageCooldown < Time.time)
+                if (onFireDamageTimer + onFireDamageCooldown < Time.time)
                 {
                     onFireDamageTimer = Time.time;
                     currentHealth--;
@@ -132,7 +156,7 @@ namespace GMTK2021.Gameplay.Enemy.Base
         {
             if (currentHealth <= 0)
             {
-                if(explosionPrefab)
+                if (explosionPrefab)
                     Instantiate(explosionPrefab, transform.position, transform.rotation, null);
                 Destroy(gameObject);
             }
@@ -140,7 +164,7 @@ namespace GMTK2021.Gameplay.Enemy.Base
 
         private void OnTriggerStay(Collider other)
         {
-            if(other.CompareTag("Fire"))
+            if (other.CompareTag("Fire"))
             {
                 isInFire = true;
                 isOnFire = true;
