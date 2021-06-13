@@ -100,7 +100,8 @@ namespace GMTK2021.Gameplay
 
         internal void ShiftToFuel()
         {
-            healthFuelValues.ShiftToB(1);
+            if(Input.GetKeyDown(KeyCode.Q) || healthFuelValues.A > 1)
+                healthFuelValues.ShiftToB(1);
             HealthCheck();
         }
 
@@ -156,9 +157,9 @@ namespace GMTK2021.Gameplay
         public void LookAt(Vector3 location)
         {
             Vector3 myPosition = meshRoot.position;
-            myPosition.y = 0;
+            //myPosition.y = 0;
             Vector3 theirPosition = location;
-            theirPosition.y = 0;
+            //theirPosition.y = 0;
             this.theirPosition = theirPosition;
         }
 
